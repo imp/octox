@@ -1,3 +1,5 @@
+use core::fmt;
+
 #[repr(u16)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum FileType {
@@ -6,6 +8,23 @@ pub enum FileType {
     Dir = 1,
     File = 2,
     Device = 3,
+}
+
+impl FileType {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Empty => "empty",
+            Self::Dir => "dir",
+            Self::File => "file",
+            Self::Device => "device",
+        }
+    }
+}
+
+impl fmt::Display for FileType {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        self.as_str().fmt(f)
+    }
 }
 
 #[derive(Default, Debug, Clone, Copy)]
